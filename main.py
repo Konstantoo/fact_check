@@ -781,11 +781,28 @@ class TelegramFactCheckerBot:
             topic = context.user_data.get('last_topic')
             initial_analysis = context.user_data.get('last_analysis')
             
+            logger.info(f"Начинаем Deep Research для пользователя {user_id}")
+            logger.info(f"Тема: {topic}")
+            logger.info(f"Начальный анализ: {initial_analysis[:100]}...")
+            
             import time
             start_time = time.time()
-            deep_research_result = await self.deep_research_service.conduct_deep_research(topic, initial_analysis)
-            end_time = time.time()
-            duration = int(end_time - start_time)
+            
+            try:
+                deep_research_result = await self.deep_research_service.conduct_deep_research(topic, initial_analysis)
+                end_time = time.time()
+                duration = int(end_time - start_time)
+                
+                logger.info(f"Deep Research завершен за {duration} секунд")
+                
+            except Exception as e:
+                logger.error(f"Ошибка при проведении Deep Research: {str(e)}")
+                await query.edit_message_text(
+                    f"❌ **Ошибка при проведении Deep Research**\n\n"
+                    f"Произошла ошибка: {str(e)}\n\n"
+                    f"Попробуйте позже или обратитесь в поддержку."
+                )
+                return
             
             # Отмечаем использование Deep Research
             self.user_service.use_deep_research(user_id)

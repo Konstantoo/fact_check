@@ -11,8 +11,12 @@ class DeepResearchService:
     async def conduct_deep_research(self, topic: str, initial_analysis: str) -> str:
         """Проводит углубленное исследование с использованием дорогой модели"""
         
+        logger.info(f"Начинаем Deep Research для темы: {topic}")
+        logger.info(f"Начальный анализ: {initial_analysis[:200]}...")
+        
         # Формируем промпт на основе простого анализа
         research_prompt = self._generate_research_prompt(topic, initial_analysis)
+        logger.info(f"Сгенерирован промпт для Deep Research: {research_prompt[:200]}...")
         
         messages = [
             {
@@ -51,13 +55,18 @@ class DeepResearchService:
         }
         
         logger.info(f"Запускаем Deep Research для темы: {topic[:100]}...")
+        logger.info(f"Отправляем запрос в Perplexity API для Deep Research...")
+        logger.info(f"Payload: {payload}")
         
         async with aiohttp.ClientSession() as session:
             async with session.post(self.base_url, json=payload, headers=headers) as response:
+                logger.info(f"Получен ответ от API: {response.status}")
+                
                 if response.status == 200:
                     result = await response.json()
                     content = result['choices'][0]['message']['content']
                     logger.info(f"Deep Research завершен, получено {len(content)} символов")
+                    logger.info(f"Результат Deep Research: {content[:200]}...")
                     return content
                 else:
                     error_text = await response.text()
