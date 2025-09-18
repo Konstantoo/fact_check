@@ -391,6 +391,10 @@ class TelegramFactCheckerBot:
             formatter = ResponseFormatter()
             formatted_fact_check = formatter.format_fact_check(fact_check)
             
+            # Сохраняем контекст для Deep Research по утверждению
+            context.user_data['last_topic'] = f"Факт-чек утверждения: {message_text[:200]}"
+            context.user_data['last_analysis'] = formatted_fact_check
+            
             # Разбиваем длинные сообщения
             if len(formatted_fact_check) > 4000:
                 # Отправляем по частям
@@ -403,9 +407,12 @@ class TelegramFactCheckerBot:
             else:
                 await update.message.reply_text(formatted_fact_check, parse_mode='Markdown')
             
-            # Показываем меню после проверки
+            # Показываем меню после проверки (с Deep Research)
+            is_free = self.user_service.can_use_deep_research(user_id)
+            deep_research_text = "🔬 Deep Research (БЕСПЛАТНО!)" if is_free else "🔬 Deep Research (449₽)"
             keyboard = [
                 [InlineKeyboardButton("🔍 Проверить другое утверждение", callback_data="check_fact")],
+                [InlineKeyboardButton(deep_research_text, callback_data="deep_research")],
                 [InlineKeyboardButton("🔙 Главное меню", callback_data="main_menu")]
             ]
             reply_markup = InlineKeyboardMarkup(keyboard)
