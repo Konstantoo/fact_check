@@ -773,7 +773,8 @@ class TelegramFactCheckerBot:
             # Показываем индикатор загрузки с временем
             await query.edit_message_text(
                 "🔬 Запускаю Глубокое Исследование...\n\n"
-                "⏱️ Ожидаемое время: 2-3 минуты\n\n"
+                "⏱️ Ожидаемое время: 3-4 минуты\n"
+                "🔍 Анализирую сотни источников...\n\n"
                 "⏳ Пожалуйста, подождите..."
             )
             
@@ -789,7 +790,34 @@ class TelegramFactCheckerBot:
             start_time = time.time()
             
             try:
-                deep_research_result = await self.deep_research_service.conduct_deep_research(topic, initial_analysis)
+                # Создаем задачу для Deep Research
+                deep_research_task = asyncio.create_task(
+                    self.deep_research_service.conduct_deep_research(topic, initial_analysis)
+                )
+                
+                # Показываем промежуточные обновления
+                status_messages = [
+                    "🔍 Ищу независимые источники...",
+                    "📊 Анализирую экспертные мнения...",
+                    "📈 Собираю статистические данные...",
+                    "🌍 Проверяю международные источники...",
+                    "⚖️ Ищу альтернативные точки зрения...",
+                    "🎯 Формирую заключение..."
+                ]
+                
+                message_index = 0
+                while not deep_research_task.done():
+                    await asyncio.sleep(30)  # Обновляем каждые 30 секунд
+                    if not deep_research_task.done() and message_index < len(status_messages):
+                        await query.edit_message_text(
+                            f"🔬 Глубокое Исследование...\n\n"
+                            f"⏱️ Прошло: {int(time.time() - start_time)} секунд\n"
+                            f"📊 {status_messages[message_index]}\n\n"
+                            f"⏳ Пожалуйста, подождите..."
+                        )
+                        message_index += 1
+                
+                deep_research_result = await deep_research_task
                 end_time = time.time()
                 duration = int(end_time - start_time)
                 
