@@ -896,7 +896,8 @@ class TelegramFactCheckerBot:
         
         try:
             # Запускаем бота
-            self.application.run_polling()
+            # Сбрасываем накопленные апдейты и возможный webhook, чтобы избежать 409 Conflict
+            self.application.run_polling(drop_pending_updates=True)
         except Exception as e:
             logger.error(f"Ошибка при запуске бота: {e}")
             raise
