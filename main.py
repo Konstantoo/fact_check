@@ -895,8 +895,15 @@ class TelegramFactCheckerBot:
         logger.info("Запуск Telegram-бота...")
         
         try:
-            # Запускаем бота
-            # Сбрасываем накопленные апдейты и возможный webhook, чтобы избежать 409 Conflict
+            # Сначала удаляем возможный webhook, чтобы исключить конфликт с polling
+            try:
+                import asyncio as _asyncio
+                _asyncio.run(self.application.bot.delete_webhook(drop_pending_updates=True))
+                logger.info("Webhook удален (drop_pending_updates=True)")
+            except Exception as e_w:
+                logger.warning(f"Не удалось удалить webhook: {e_w}")
+
+            # Запускаем бота с очисткой подвисших апдейтов, чтобы избежать 409 Conflict
             self.application.run_polling(drop_pending_updates=True)
         except Exception as e:
             logger.error(f"Ошибка при запуске бота: {e}")
