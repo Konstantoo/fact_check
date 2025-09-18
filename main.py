@@ -891,20 +891,35 @@ class TelegramFactCheckerBot:
             )
     
     def run(self):
-        """Запуск бота"""
+        """Запуск бота (Webhook или Polling)"""
         logger.info("Запуск Telegram-бота...")
         
         try:
-            # Сначала удаляем возможный webhook, чтобы исключить конфликт с polling
-            try:
-                import asyncio as _asyncio
-                _asyncio.run(self.application.bot.delete_webhook(drop_pending_updates=True))
-                logger.info("Webhook удален (drop_pending_updates=True)")
-            except Exception as e_w:
-                logger.warning(f"Не удалось удалить webhook: {e_w}")
+            webhook_url = os.getenv("WEBHOOK_URL", "").strip()
+            port = int(os.getenv("PORT", "8000"))
+            path = os.getenv("WEBHOOK_PATH", f"/{self.config.TELEGRAM_TOKEN}")
 
-            # Запускаем бота с очисткой подвисших апдейтов, чтобы избежать 409 Conflict
-            self.application.run_polling(drop_pending_updates=True)
+            if webhook_url:
+                # Запуск в режиме webhook
+                logger.info(f"Включаем Webhook: url={webhook_url}, path={path}, port={port}")
+                # Устанавливаем webhook
+                import asyncio as _asyncio
+                _asyncio.run(self.application.bot.set_webhook(url=webhook_url + path, drop_pending_updates=True))
+                # Запускаем веб-сервер
+                self.application.run_webhook(
+                    listen="0.0.0.0",
+                    port=port,
+                    url_path=path,
+                )
+            else:
+                # Fallback: polling (локально)
+                logger.info("WEBHOOK_URL не задан — запускаем polling")
+                try:
+                    import asyncio as _asyncio
+                    _asyncio.run(self.application.bot.delete_webhook(drop_pending_updates=True))
+                except Exception:
+                    pass
+                self.application.run_polling(drop_pending_updates=True)
         except Exception as e:
             logger.error(f"Ошибка при запуске бота: {e}")
             raise
