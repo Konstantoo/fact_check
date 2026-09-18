@@ -1,137 +1,66 @@
 <!DOCTYPE html>
-  <html lang="ru">
-  <head>
-  <meta charset="utf-8">
-  <title>Нейросети из России</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    :root{--bg:#0e1015;--panel:#161922;--line:#262b3a;--text:#f2f4f8;--muted:#9aa3b5;--dim:#6b7386;
-      --green:#22c55e;--red:#ef4444;--accent:#7c8cff;--chip:#242a3b}
-    *{box-sizing:border-box}
-    html,body{margin:0;background:var(--bg);color:var(--text);font-family:"Inter","Segoe UI",system-ui,"DejaVu Sans",Arial,sans-serif}
-    .wrap{width:1080px;margin:0 auto;padding:56px 48px 48px}
-    h1{font-size:64px;line-height:1.05;margin:0 0 14px;font-weight:800;letter-spacing:-1px}
-    h1 span{color:var(--accent)}
-    .sub{color:var(--muted);font-size:28px;margin:0 0 26px;line-height:1.35}
-    .legend{display:flex;flex-wrap:wrap;gap:14px 34px;background:var(--panel);border:1px solid var(--line);border-radius:20px;
-      padding:20px 26px;margin-bottom:30px;font-size:26px;color:var(--muted)}
-    .legend b{color:var(--text)}
-    .legend .dot{width:22px;height:22px;display:inline-block;border-radius:50%;vertical-align:-3px;margin-right:10px}
-    .legend .g{background:var(--green)} .legend .r{background:var(--red)}
-    h2{font-size:30px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin:34px 0 14px 6px;display:flex;align-items:center;gap:12px}
-    h2 span{font-size:36px}
-    .card{background:var(--panel);border:1px solid var(--line);border-left:10px solid var(--red);border-radius:22px;padding:20px 26px 22px;margin-bottom:14px}
-    .card.g{border-left-color:var(--green)}
-    .card.g .dot{background:var(--green)} .card.r .dot{background:var(--red)}
-    .top{display:flex;justify-content:space-between;align-items:center;gap:16px}
-    .who{display:flex;align-items:center;gap:16px}
-    .dot{width:30px;height:30px;border-radius:50%;flex:none;box-shadow:0 0 0 6px rgba(255,255,255,.06)}
-    .name{font-size:40px;font-weight:800;line-height:1.1}
-    .co{color:var(--dim);font-size:24px;margin-top:2px}
-    .score{display:flex;align-items:center;gap:10px;flex:none}
-    .bar{width:140px;height:14px;background:#262b3a;border-radius:7px;overflow:hidden}
-    .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),#b39bff)}
-    .score b{font-size:38px} .score span{color:var(--dim);font-size:22px}
-    .models{display:flex;gap:14px;margin:16px 0 14px;flex-wrap:wrap}
-    .m{display:flex;flex-direction:column;gap:6px;flex:1 1 45%}
-    .m small{font-size:20px;color:var(--dim);text-transform:uppercase;letter-spacing:1px}
-    .chip{display:inline-block;background:var(--chip);border-radius:12px;padding:12px 16px;font-size:27px;font-weight:600}
-    .chip.f{background:#2a2350;color:#cfc6ff;border:1px solid #3d3470}
-    .price{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;font-size:26px}
-    .price b{font-size:32px} .price span{color:var(--muted)}
-    .call{margin-top:34px;background:linear-gradient(135deg,#1a1f33,#141827);border:1px solid #33396b;border-radius:22px;padding:24px 28px;font-size:28px;line-height:1.4}
-    .call b{color:#cfc6ff}
-    footer{margin-top:26px;color:var(--dim);font-size:22px;line-height:1.45}
-  footer.dots{color:var(--muted);font-size:26px;margin-top:34px;padding-top:22px;border-top:1px solid var(--line)}
-  footer.dots b{color:var(--text)}
-  footer.dots .dot{width:22px;height:22px;display:inline-block;vertical-align:-3px;margin-right:10px;box-shadow:none}
-  footer.dots .g{background:var(--green)} footer.dots .r{background:var(--red)}
-    @media (max-width:1100px){.wrap{width:100%;padding:24px 16px} h1{font-size:34px} .sub,.legend,.chip,.price,.call{font-size:16px}
-      .name{font-size:22px} .co,.m small,.score span,footer{font-size:13px} .score b{font-size:22px} .price b{font-size:18px} h2{font-size:16px}}
-  </style>
-  </head>
-  <body>
-  <div class="wrap">
-    <h1>Нейросети <span>из России</span>: Запад · 1/2</h1>
-    <p class="sub">14 сервисов · флагман и обычная модель · цена подписки в месяц · срез 18.09.2026</p>
-    <div class="legend">
-      <span>Российской картой платится только Алиса и GigaChat</span>
-      <span>Оценка /10 — субъективная, мнение автора</span>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Нейросети из России</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root{--bg:#0e1015;--line:#262b3a;--sep:#3a4052;--text:#f2f4f8;--muted:#b0b8c8;--green:#22c55e;--red:#ef4444;--accent:#7c8cff}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--text);font-family:"Inter","Segoe UI",system-ui,"DejaVu Sans",Arial,sans-serif}
+  .page{width:1080px;height:1350px;padding:56px;display:flex;flex-direction:column;background:var(--bg)}
+  h1{font-size:72px;line-height:1.05;margin:0;font-weight:800;letter-spacing:-1px}
+  .sub{font-size:40px;font-weight:700;color:var(--muted);margin:22px 0 0}
+  .sub b{color:var(--accent)}
+  .rows{margin-top:24px;flex:1}
+  .row{height:160px;border-bottom:1px solid var(--line);padding:26px 0 0}
+  .l1{display:flex;align-items:center;gap:20px}
+  .dot{width:36px;height:36px;border-radius:50%;flex:none}
+  .row.g .dot{background:var(--green)} .row.r .dot{background:var(--red)}
+  .name{font-size:52px;font-weight:800;color:var(--text);text-decoration:none;line-height:1}
+  .price{margin-left:auto;font-size:44px;font-weight:800;color:var(--accent)}
+  .price.free{color:var(--green)}
+  .l2{display:flex;justify-content:space-between;align-items:baseline;gap:20px;margin:14px 0 0 56px;font-size:32px;font-weight:500;color:var(--muted);white-space:nowrap}
+  .l2>span:first-child{overflow:hidden;text-overflow:ellipsis}
+  .score{font-weight:600;flex:none}
+  .sep{height:2px;background:var(--sep);margin:10px 0}
+  .foot{border-top:1px solid var(--line);padding-top:18px;font-size:30px;font-weight:500;color:var(--muted);line-height:1.4}
+  .foot .dot{display:inline-block;width:22px;height:22px;vertical-align:-2px;margin-right:8px}
+  .foot .g{background:var(--green)} .foot .r{background:var(--red)}
+  .stack .page{margin:0 auto 40px}
+  @media (max-width:1000px){.page{width:100%;height:auto;padding:20px 16px}
+    h1{font-size:30px} .sub{font-size:17px} .name{font-size:22px} .price{font-size:20px} .l2{font-size:14px;white-space:normal;margin-left:34px}
+    .row{height:auto;padding:14px 0} .dot{width:18px;height:18px} .foot{font-size:13px} .foot .dot{width:12px;height:12px}}
+</style>
+</head>
+<body class="">
+<div class="page">
+  <h1>Какие нейросети<br>открываются из России</h1>
+  <p class="sub"><b>Сентябрь 2026</b> · США и Европа · 1 из 2</p>
+  <div class="rows">
+    <div class="row r">
+      <div class="l1"><span class="dot"></span><a class="name" href="https://chatgpt.com">ChatGPT</a><span class="price">$20</span></div>
+      <div class="l2"><span>Флагман GPT-6 · Базовая GPT-5.6</span><span class="score">10/10</span></div>
     </div>
-    <section class="group"><h2><span>🇺🇸</span>США</h2>
-    <article class="card r">
-      <div class="top">
-        <div class="who"><span class="dot"></span><div><div class="name">ChatGPT</div><div class="co">OpenAI</div></div></div>
-        <div class="score"><div class="bar"><i style="width:100%"></i></div><b>10</b><span>/10</span></div>
-      </div>
-      <div class="models">
-        <div class="m"><small>Frontier</small><span class="chip f">GPT-6 Astra</span></div>
-        <div class="m"><small>Обычная</small><span class="chip">GPT-5.6 Luna</span></div>
-      </div>
-      <div class="price"><b>Plus $20</b><span>Astra в чате только на Pro от $100</span></div>
-    </article>
-    <article class="card r">
-      <div class="top">
-        <div class="who"><span class="dot"></span><div><div class="name">Claude</div><div class="co">Anthropic</div></div></div>
-        <div class="score"><div class="bar"><i style="width:100%"></i></div><b>10</b><span>/10</span></div>
-      </div>
-      <div class="models">
-        <div class="m"><small>Frontier</small><span class="chip f">Claude Fable 5.1</span></div>
-        <div class="m"><small>Обычная</small><span class="chip">Opus 5 / Sonnet 5</span></div>
-      </div>
-      <div class="price"><b>Pro $20</b><span>Max $100</span></div>
-    </article>
-    <article class="card r">
-      <div class="top">
-        <div class="who"><span class="dot"></span><div><div class="name">Gemini</div><div class="co">Google</div></div></div>
-        <div class="score"><div class="bar"><i style="width:90%"></i></div><b>9</b><span>/10</span></div>
-      </div>
-      <div class="models">
-        <div class="m"><small>Frontier</small><span class="chip f">Gemini 3.1 Pro</span></div>
-        <div class="m"><small>Обычная</small><span class="chip">Gemini 3.8 Flash</span></div>
-      </div>
-      <div class="price"><b>AI Pro $19.99</b><span>Deep Think в Ultra от $99.99</span></div>
-    </article>
-    <article class="card r">
-      <div class="top">
-        <div class="who"><span class="dot"></span><div><div class="name">Grok</div><div class="co">xAI</div></div></div>
-        <div class="score"><div class="bar"><i style="width:80%"></i></div><b>8</b><span>/10</span></div>
-      </div>
-      <div class="models">
-        <div class="m"><small>Frontier</small><span class="chip f">Grok 4.6 Heavy</span></div>
-        <div class="m"><small>Обычная</small><span class="chip">Grok 4.6</span></div>
-      </div>
-      <div class="price"><b>SuperGrok $30</b><span>Heavy $300, есть бесплатный</span></div>
-    </article>
-    <article class="card r">
-      <div class="top">
-        <div class="who"><span class="dot"></span><div><div class="name">Perplexity</div><div class="co">Perplexity AI</div></div></div>
-        <div class="score"><div class="bar"><i style="width:80%"></i></div><b>8</b><span>/10</span></div>
-      </div>
-      <div class="models">
-        <div class="m"><small>Frontier</small><span class="chip f">Pro Search / Deep Research</span></div>
-        <div class="m"><small>Обычная</small><span class="chip">Быстрый поиск</span></div>
-      </div>
-      <div class="price"><b>Pro $20</b><span>Max $50</span></div>
-    </article>
-  </section>
-  <section class="group"><h2><span>🇪🇺</span>Европа</h2>
-    <article class="card g">
-      <div class="top">
-        <div class="who"><span class="dot"></span><div><div class="name">Mistral Vibe</div><div class="co">Mistral, Франция (экс-Le Chat)</div></div></div>
-        <div class="score"><div class="bar"><i style="width:70%"></i></div><b>7</b><span>/10</span></div>
-      </div>
-      <div class="models">
-        <div class="m"><small>Frontier</small><span class="chip f">Mistral Medium 3.5</span></div>
-        <div class="m"><small>Обычная</small><span class="chip">Mistral Small 4</span></div>
-      </div>
-      <div class="price"><b>Pro $14.99</b><span>Бесплатно ~25 сообщений в день</span></div>
-    </article>
-  </section>
-
-    <footer class="dots"><span class="dot g"></span><b>Зелёный</b> — открывается из России напрямую, сразу.&nbsp;&nbsp;<span class="dot r"></span><b>Красный</b> — напрямую не открывается, нужен обходной путь.</footer>
-  <footer>Frontier — самая сильная модель вендора, обычно в платном тарифе. Обычная — бесплатный дефолт. Kimi не часть Qwen: Moonshot AI — отдельная компания. Доступ и цены сверены 18.09.2026 по сайтам вендоров и гайдам; ситуация меняется, перепроверяйте.</footer>
+    <div class="row r">
+      <div class="l1"><span class="dot"></span><a class="name" href="https://claude.ai">Claude</a><span class="price">$20</span></div>
+      <div class="l2"><span>Флагман Fable 5.1 · Базовая Sonnet 5</span><span class="score">10/10</span></div>
+    </div>
+    <div class="row r">
+      <div class="l1"><span class="dot"></span><a class="name" href="https://gemini.google.com">Gemini</a><span class="price">$20</span></div>
+      <div class="l2"><span>Флагман 3.1 Pro · Базовая 3.8 Flash</span><span class="score">9/10</span></div>
+    </div>
+    <div class="row r">
+      <div class="l1"><span class="dot"></span><a class="name" href="https://grok.com">Grok</a><span class="price">$30</span></div>
+      <div class="l2"><span>Флагман 4.6 Heavy · Базовая 4.6 · есть free</span><span class="score">8/10</span></div>
+    </div>
+    <div class="row g">
+      <div class="l1"><span class="dot"></span><a class="name" href="https://chat.mistral.ai">Mistral</a><span class="price">$15</span></div>
+      <div class="l2"><span>Флагман Medium 3.5 · Базовая Small 4</span><span class="score">7/10</span></div>
+    </div>
   </div>
-  </body>
-  </html>
-  
+  <div class="foot"><span class="dot g"></span>Зелёный — открывается из России напрямую · <span class="dot r"></span>Красный — напрямую не открывается, нужен обходной путь<br>
+  Флагман и базовая модель · цена в месяц · оценка — мнение автора · проверено 18.09.2026</div>
+</div>
+</body>
+</html>
