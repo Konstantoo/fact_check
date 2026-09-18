@@ -6,7 +6,7 @@ DATE = "18.09.2026"
 
 # (lvl g/r, name, url, flagship, base, price, is_free, note, score)
 PART1 = [
- ("r","ChatGPT","https://chatgpt.com","GPT-6","GPT-5.6","$20",False,"",10),
+ ("r","ChatGPT","https://chatgpt.com","GPT-6 Astra","GPT-5.6 Luna","$20",False,"",10),
  ("r","Claude","https://claude.ai","Fable 5.1","Sonnet 5","$20",False,"",10),
  ("r","Gemini","https://gemini.google.com","3.1 Pro","3.8 Flash","$20",False,"",9),
  ("r","Grok","https://grok.com","4.6 Heavy","4.6","$30",False,"",8),
