@@ -42,6 +42,10 @@
     .call{margin-top:34px;background:linear-gradient(135deg,#1a1f33,#141827);border:1px solid #33396b;border-radius:22px;padding:24px 28px;font-size:28px;line-height:1.4}
     .call b{color:#cfc6ff}
     footer{margin-top:26px;color:var(--dim);font-size:22px;line-height:1.45}
+  footer.dots{color:var(--muted);font-size:26px;margin-top:34px;padding-top:22px;border-top:1px solid var(--line)}
+  footer.dots b{color:var(--text)}
+  footer.dots .dot{width:22px;height:22px;display:inline-block;vertical-align:-3px;margin-right:10px;box-shadow:none}
+  footer.dots .g{background:var(--green)} footer.dots .r{background:var(--red)}
     @media (max-width:1100px){.wrap{width:100%;padding:24px 16px} h1{font-size:34px} .sub,.legend,.chip,.price,.call{font-size:16px}
       .name{font-size:22px} .co,.m small,.score span,footer{font-size:13px} .score b{font-size:22px} .price b{font-size:18px} h2{font-size:16px}}
   </style>
@@ -51,8 +55,6 @@
     <h1>Нейросети <span>из России</span>: Китай и РФ · 2/2</h1>
     <p class="sub">14 сервисов · флагман и обычная модель · цена подписки в месяц · срез 18.09.2026</p>
     <div class="legend">
-      <span><span class="dot g"></span><b>Зелёный</b> — без VPN</span>
-      <span><span class="dot r"></span><b>Красный</b> — нужен VPN</span>
       <span>Российской картой платится только Алиса и GigaChat</span>
       <span>Оценка /10 — субъективная, мнение автора</span>
     </div>
@@ -149,8 +151,9 @@
     </article>
   </section>
 
-    <div class="call"><b>Прогноз автора:</b> Qwen скоро выстрелит. Это единственная модель уровня топ-3, которая открывается из России без VPN и без регистрации по иностранному номеру, а картинки, код и агенты уже в одном чате.</div>
-    <footer>Frontier — самая сильная модель вендора, обычно в платном тарифе. Обычная — бесплатный дефолт. Kimi не часть Qwen: Moonshot AI — отдельная компания. Доступ и цены сверены 18.09.2026 по сайтам вендоров и гайдам; ситуация меняется, перепроверяйте.</footer>
+    <div class="call"><b>Прогноз автора:</b> Qwen скоро выстрелит. Это единственная модель уровня топ-3, которая открывается из России напрямую и без регистрации по иностранному номеру, а картинки, код и агенты уже в одном чате.</div>
+    <footer class="dots"><span class="dot g"></span><b>Зелёный</b> — открывается из России напрямую, сразу.&nbsp;&nbsp;<span class="dot r"></span><b>Красный</b> — напрямую не открывается, нужен обходной путь.</footer>
+  <footer>Frontier — самая сильная модель вендора, обычно в платном тарифе. Обычная — бесплатный дефолт. Kimi не часть Qwen: Moonshot AI — отдельная компания. Доступ и цены сверены 18.09.2026 по сайтам вендоров и гайдам; ситуация меняется, перепроверяйте.</footer>
   </div>
   </body>
   </html>
