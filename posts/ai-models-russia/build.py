@@ -9,7 +9,7 @@ PART1 = [
  ("r","ChatGPT","https://chatgpt.com","GPT-6","GPT-5.6","$20",False,"",10),
  ("r","Claude","https://claude.ai","Fable 5.1","Sonnet 5","$20",False,"",10),
  ("r","Gemini","https://gemini.google.com","3.1 Pro","3.8 Flash","$20",False,"",9),
- ("r","Grok","https://grok.com","4.6 Heavy","4.6","$30",False,"есть free",8),
+ ("r","Grok","https://grok.com","4.6 Heavy","4.6","$30",False,"",8),
  ("g","Mistral","https://chat.mistral.ai","Medium 3.5","Small 4","$15",False,"",7),
 ]
 PART2 = [
@@ -28,7 +28,7 @@ def row(r):
     note = f' · {note}' if note else ''
     return f'''    <div class="row {l}">
       <div class="l1"><span class="dot"></span><a class="name" href="{u}">{n}</a><span class="price{' free' if free else ''}">{p}</span></div>
-      <div class="l2"><span>Флагман {f} · Базовая {b}{note}</span><span class="score">{s}/10</span></div>
+      <div class="l2"><span>Флагман {f} · Базовая {b}{note}</span></div>
     </div>'''
 
 CSS = '''
@@ -37,10 +37,10 @@ CSS = '''
   html,body{margin:0;background:var(--bg);color:var(--text);font-family:"Inter","Segoe UI",system-ui,"DejaVu Sans",Arial,sans-serif}
   .page{width:1080px;height:1350px;padding:56px;display:flex;flex-direction:column;background:var(--bg)}
   h1{font-size:72px;line-height:1.05;margin:0;font-weight:800;letter-spacing:-1px}
-  .sub{font-size:40px;font-weight:700;color:var(--muted);margin:22px 0 0}
+  .sub{font-size:56px;font-weight:800;color:var(--muted);margin:0}
   .sub b{color:var(--accent)}
-  .rows{margin-top:24px;flex:1}
-  .row{height:160px;border-bottom:1px solid var(--line);padding:26px 0 0}
+  .rows{margin-top:30px;flex:1}
+  .row{height:190px;border-bottom:1px solid var(--line);padding:40px 0 0}
   .l1{display:flex;align-items:center;gap:20px}
   .dot{width:36px;height:36px;border-radius:50%;flex:none}
   .row.g .dot{background:var(--green)} .row.r .dot{background:var(--red)}
@@ -62,13 +62,12 @@ CSS = '''
 
 def page(sub, rows):
     return f'''<div class="page">
-  <h1>Какие нейросети<br>открываются из России</h1>
   <p class="sub"><b>Сентябрь 2026</b> · {sub}</p>
   <div class="rows">
 {chr(10).join(row(r) for r in rows)}
   </div>
-  <div class="foot"><span class="dot g"></span>Зелёный — открывается из России напрямую · <span class="dot r"></span>Красный — напрямую не открывается, нужен обходной путь<br>
-  Флагман и базовая модель · цена в месяц · оценка — мнение автора · проверено {DATE}</div>
+  <div class="foot"><span class="dot g"></span>Зелёный — открывается из России напрямую · <span class="dot r"></span>Красный — напрямую не открывается<br>
+  Флагман и базовая модель · цена в месяц · проверено {DATE}</div>
 </div>'''
 
 def doc(body, stack=False):
@@ -86,8 +85,8 @@ def doc(body, stack=False):
 </html>
 '''
 
-p1 = page("США и Европа · 1 из 2", PART1)
-p2 = page("Китай и Россия · 2 из 2", PART2)
+p1 = page("1 из 2", PART1)
+p2 = page("2 из 2", PART2)
 for fname, html in [("part1.html", doc(p1)), ("part2.html", doc(p2)), ("index.html", doc(p1 + "\n" + p2, stack=True))]:
     open(fname, "w").write(html)
     print(fname, "written")
