@@ -1,2 +1,4 @@
 .env
 verifier_cache.db
+__pycache__/
+*.pyc
