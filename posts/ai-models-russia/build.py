@@ -109,5 +109,5 @@ for fname,(title,sections,with_call) in parts.items():
   </body>
   </html>
   '''
-  if not with_call: html = html.replace(html[html.index('  <div class="call">'):html.index("  <footer>")], "")
+  if not with_call: html = html.replace(html[html.index('    <div class="call">'):html.index('    <footer class="dots">')], "")
   open(fname,"w").write(html); print(fname, "written")
